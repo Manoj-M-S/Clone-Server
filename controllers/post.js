@@ -94,7 +94,7 @@ exports.updatePost = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      return res.status(422).json({ error: err });
     });
 };
 

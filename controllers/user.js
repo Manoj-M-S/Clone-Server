@@ -19,6 +19,7 @@ exports.getUserProfile = (req, res) => {
   const useremail = req.profile.email;
   const followers = req.profile.followers;
   const following = req.profile.following;
+  const profile = req.profile.photo;
 
   Post.find({ postedBy: req.profile.name }).exec((error, posts) => {
     if (error) {
@@ -27,7 +28,15 @@ exports.getUserProfile = (req, res) => {
       });
     }
     const len = posts.length;
-    res.json({ followers, following, posts, username, useremail, len });
+    res.json({
+      followers,
+      following,
+      posts,
+      username,
+      useremail,
+      len,
+      profile,
+    });
   });
 };
 
@@ -64,7 +73,6 @@ exports.followUser = (req, res) => {
       )
         .then((result) => {
           res.json(result);
-          console.log(result);
         })
         .catch((err) => {
           res.status(422).json({
@@ -93,7 +101,6 @@ exports.unfollowUser = (req, res) => {
       )
         .then((result) => {
           res.json(result);
-          console.log(result);
         })
         .catch((err) => {
           res.status(422).json({
@@ -102,4 +109,23 @@ exports.unfollowUser = (req, res) => {
         });
     }
   );
+};
+
+exports.updateUserProfile = (req, res) => {
+  User.findByIdAndUpdate(
+    req.profile._id,
+    { photo: req.body.photo },
+    { new: true },
+    (err, result) => {
+      if (err) {
+        res.status(422).json({
+          error: err,
+        });
+      }
+      res.json(result);
+    }
+  )
+  .catch((err) => {
+    return res.status(422).json({ error: err });
+  });
 };

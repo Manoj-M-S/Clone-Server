@@ -20,6 +20,9 @@ var userSchema = new mongoose.Schema({
   },
   followers: [{ type: Object, ref: "User" }],
   following: [{ type: Object, ref: "User" }],
+  photo: {
+    type: String,
+  },
   role: {
     type: Number,
     default: 0,

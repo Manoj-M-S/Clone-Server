@@ -34,7 +34,7 @@ router.put("/comment", commentPost);
 router.put("/comment/delete", deleteComment);
 
 router.get("/posts", getAllPosts);
-router.get("/feed", getSubPosts);
+router.get("/feed/:userId", isLoggedIn, isAuthenticated, getSubPosts);
 
 router.get("/post/:postId/:userId", isLoggedIn, isAuthenticated, getPost);
 

@@ -23,6 +23,7 @@ exports.signup = (req, res) => {
         email: req.body.email,
         password: hash,
         role: req.body.role,
+        photo: req.body.photo,
       });
       user.save((error, user) => {
         if (error) {
@@ -63,10 +64,10 @@ exports.login = (req, res) => {
       if (result) {
         const token = jwt.sign({ _id: user._id }, process.env.SECRET);
         res.cookie("token", token, { expire: new Date() + 9999 });
-        const { _id, name, email, role, followers, following } = user;
+        const { _id, name, email, role, photo } = user;
         return res.json({
           token,
-          user: { _id, name, email, role, followers, following },
+          user: { _id, name, email, role, photo },
         });
       }
     });

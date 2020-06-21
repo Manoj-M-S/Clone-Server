@@ -9,6 +9,7 @@ const {
   unfollowUser,
   followUser,
   getUserProfile,
+  updateUserProfile,
 } = require("../controllers/user");
 
 //accessing Middleware
@@ -22,6 +23,7 @@ router.param("userId", getUserById);
 router.get("/user/:userId", isLoggedIn, isAuthenticated, getUser);
 router.get("/users", getAllUsers);
 router.get("/profile/:userId", getUserProfile);
+router.put("/profile/pic/:userId", isLoggedIn, updateUserProfile);
 
 router.put("/follow", isLoggedIn, followUser);
 router.put("/unfollow", isLoggedIn, unfollowUser);
