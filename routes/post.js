@@ -36,16 +36,11 @@ router.put("/comment/delete", deleteComment);
 router.get("/posts", getAllPosts);
 router.get("/feed/:userId", isLoggedIn, isAuthenticated, getSubPosts);
 
-router.get("/post/:postId/:userId", isLoggedIn, isAuthenticated, getPost);
+router.get("/post/:postId", getPost);
 
 router.get("/myposts/:userId", isLoggedIn, isAuthenticated, getMyPosts);
 
-router.put(
-  "/post/update/:userId/:postId",
-  isLoggedIn,
-  isAuthenticated,
-  updatePost
-);
+router.put("/post/update/:postId", updatePost);
 
 router.delete(
   "/post/delete/:userId/:postId",

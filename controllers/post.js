@@ -80,22 +80,21 @@ exports.getMyPosts = (req, res) => {
 };
 
 exports.updatePost = (req, res) => {
-  Post.findById(req.params.postId)
-    .then((post) => {
-      post.title = req.body.title;
-      post.body = req.body.body;
-      post.save((error, post) => {
-        if (error) {
-          res.status(400).json({
-            error: "Updating post failed",
-          });
-        }
-        res.json(post);
-      });
-    })
-    .catch((err) => {
-      return res.status(422).json({ error: err });
-    });
+  Post.findByIdAndUpdate(
+    req.body.postId,
+    { photo: req.body.photo, title: req.body.title, body: req.body.body },
+    { new: true },
+    (err, result) => {
+      if (err) {
+        res.status(422).json({
+          error: err,
+        });
+      }
+      res.json(result);
+    }
+  ).catch((err) => {
+    return res.status(422).json({ error: err });
+  });
 };
 
 exports.deletePost = (req, res) => {
