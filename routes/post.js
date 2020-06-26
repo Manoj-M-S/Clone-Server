@@ -34,11 +34,11 @@ router.put("/comment", commentPost);
 router.put("/comment/delete", deleteComment);
 
 router.get("/posts", getAllPosts);
-router.get("/feed/:userId", isLoggedIn, isAuthenticated, getSubPosts);
+router.get("/feed/:userId", getSubPosts);
 
 router.get("/post/:postId", getPost);
 
-router.get("/myposts/:userId", isLoggedIn, isAuthenticated, getMyPosts);
+router.get("/myposts/:userId", getMyPosts);
 
 router.put("/post/update/:postId", updatePost);
 
